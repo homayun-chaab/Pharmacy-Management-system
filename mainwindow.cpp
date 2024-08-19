@@ -55,7 +55,7 @@ void MainWindow::searchFun()
             int totalQuant_int = totalQuant[i].toInt();
 
             int bill = quant_int * prices_int;
-            QString bill_str = QString::number(bill);   //change bill text to number
+            QString bill_str = QString::number(bill);   //convert bill text to number
 
             totalQuant_int = totalQuant_int - quant_int;
             totalQuant[i] = QString::number(totalQuant_int);
