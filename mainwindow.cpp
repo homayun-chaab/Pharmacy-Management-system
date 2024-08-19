@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include <QString>
 #include <QMessageBox>
+bool found = false;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -52,6 +53,7 @@ void MainWindow::searchFun()
 
     for(int i = 0; i < medicines.length(); i++)
     {
+        qInfo() << medicines[i];
         if(user_m == medicines[i])
         {
             int quant_int = user_q.toInt();
@@ -59,8 +61,23 @@ void MainWindow::searchFun()
             int totalQuant_int = totalQuant[i].toInt();
 
             int bill = quant_int * prices_int;
+            QString bill_str = QString::number(bill);
+
+            totalQuant_int = totalQuant_int - quant_int;
             totalQuant[i] = QString::number(totalQuant_int);
+
+            QMessageBox::information(this, "Customer Bill",
+                                     "Total Bill for " + bill_str + " for " + medicines[i]+
+                                     "\n Remaning Quantity: "+ totalQuant[i]);
+            break;
         }
     }
+    if(!found)
+    {
+        QMessageBox::information(this, "Erorr",
+                                 "Invalid Medicine!")           ;
+
+    }
 }
+
 
