@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QString>
+#include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -8,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->pushButton, SIGNAL(clicked()),
             this, SLOT(addFun()));
+    connect(ui->pushButton_2, SIGNAL(cliked),
+        this, SLOT(searchFun()));
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +33,34 @@ void MainWindow::addFun()
     prices.append(price);
     totalQuant.append(quant);
 
+    QMessageBox::information(this, "Sucessful",
+                             "Medicine Added Successfully");
 
 
+
+
+
+
+
+}
+
+
+void MainWindow::searchFun()
+{
+    QString user_m = ui->lineEdit->text()    ;
+    QString user_q = ui->lineEdit_3->text();
+
+    for(int i = 0; i < medicines.length(); i++)
+    {
+        if(user_m == medicines[i])
+        {
+            int quant_int = user_q.toInt();
+            int prices_int = totalQuant[i].toInt();
+            int totalQuant_int = totalQuant[i].toInt();
+
+            int bill = quant_int * prices_int;
+            totalQuant[i] = QString::number(totalQuant_int);
+        }
+    }
 }
 

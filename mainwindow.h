@@ -20,6 +20,8 @@ public:
 private slots:
     void addFun();
 
+    void searchFun();
+
 private:
     Ui::MainWindow *ui;
 };
