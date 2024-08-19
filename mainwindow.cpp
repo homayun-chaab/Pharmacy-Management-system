@@ -2,16 +2,16 @@
 #include "./ui_mainwindow.h"
 #include <QString>
 #include <QMessageBox>
-bool found = false;
+bool found = false;     //cheak medicine existance var
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->pushButton, SIGNAL(clicked()),
+    connect(ui->pushButton, SIGNAL(clicked()),  //button 1 add medicine
             this, SLOT(addFun()));
-    connect(ui->pushButton_2, SIGNAL(cliked),
+    connect(ui->pushButton_2, SIGNAL(cliked),   // button 2 search medicine
         this, SLOT(searchFun()));
 }
 
@@ -24,7 +24,7 @@ QStringList medicines;
 QStringList prices;
 QStringList totalQuant;
 
-void MainWindow::addFun()
+void MainWindow::addFun()   //add new madiciene
 {
     QString medicine = ui->lineEdit->text();
     QString price = ui->lineEdit_2->text();
@@ -37,21 +37,15 @@ void MainWindow::addFun()
     QMessageBox::information(this, "Sucessful",
                              "Medicine Added Successfully");
 
-
-
-
-
-
-
 }
 
 
 void MainWindow::searchFun()
 {
-    QString user_m = ui->lineEdit->text()    ;
-    QString user_q = ui->lineEdit_3->text();
+    QString user_m = ui->lineEdit->text();  //madicine name var
+    QString user_q = ui->lineEdit_3->text();    //quantity var
 
-    for(int i = 0; i < medicines.length(); i++)
+    for(int i = 0; i < medicines.length(); i++) //loop throgh madicines to cheak madicines
     {
         qInfo() << medicines[i];
         if(user_m == medicines[i])
@@ -61,7 +55,7 @@ void MainWindow::searchFun()
             int totalQuant_int = totalQuant[i].toInt();
 
             int bill = quant_int * prices_int;
-            QString bill_str = QString::number(bill);
+            QString bill_str = QString::number(bill);   //change bill text to number
 
             totalQuant_int = totalQuant_int - quant_int;
             totalQuant[i] = QString::number(totalQuant_int);
@@ -72,7 +66,7 @@ void MainWindow::searchFun()
             break;
         }
     }
-    if(!found)
+    if(!found)  //not found message
     {
         QMessageBox::information(this, "Erorr",
                                  "Invalid Medicine!")           ;
